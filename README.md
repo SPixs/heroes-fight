@@ -2,7 +2,19 @@
 
 A fantasy dungeon combat web game featuring animated battles between heroes and enemies. Built as a Single Page Application (SPA) with Phaser 3 and TypeScript.
 
-![Game Preview](https://via.placeholder.com/800x400/2d2a32/d4a84b?text=Dungeon+Heroes+Fight)
+```
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║     ⚔️  D U N G E O N   H E R O E S   F I G H T  ⚔️             ║
+║                                                                  ║
+║        🛡️ Warrior  🗡️ Rogue  🔮 Mage  ✨ Paladin  🏹 Ranger     ║
+║                           VS                                     ║
+║              💀 Skeleton   👹 Orc   😈 Demon                     ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+> **Run `npm run dev` to see the game in action!**
 
 ## ✨ Features
 
