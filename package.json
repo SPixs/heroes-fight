@@ -1,0 +1,25 @@
+{
+  "name": "dungeon-heroes-fight",
+  "version": "1.0.0",
+  "description": "A fantasy dungeon combat web game with animated battles",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": ["game", "phaser", "fantasy", "combat", "dungeon"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "phaser": "^3.70.0",
+    "howler": "^2.2.4",
+    "zustand": "^4.4.7"
+  }
+}

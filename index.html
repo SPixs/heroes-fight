@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon Heroes Fight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/index.css">
+  <link rel="stylesheet" href="/src/ui/theme.css">
+</head>
+<body>
+  <!-- Game Canvas Container -->
+  <div id="game-container"></div>
+
+  <!-- UI Overlay -->
+  <div id="ui-overlay">
+    <!-- Header -->
+    <header id="game-header">
+      <div class="rune-border"></div>
+      <h1 class="game-title">⚔️ Dungeon Heroes Fight ⚔️</h1>
+      <div class="rune-border"></div>
+    </header>
+
+    <!-- Hero Forge Panel -->
+    <aside id="hero-forge" class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">🛡️</span>
+        <h2>Hero Forge</h2>
+      </div>
+      <div class="panel-content">
+        <!-- Class Selection -->
+        <div class="form-group">
+          <label>Class</label>
+          <div class="class-buttons" id="class-selector">
+            <button class="class-btn active" data-class="warrior" title="Warrior [1]">
+              <span class="class-icon">⚔️</span>
+              <span class="class-name">Warrior</span>
+            </button>
+            <button class="class-btn" data-class="rogue" title="Rogue [2]">
+              <span class="class-icon">🗡️</span>
+              <span class="class-name">Rogue</span>
+            </button>
+            <button class="class-btn" data-class="mage" title="Mage [3]">
+              <span class="class-icon">🔮</span>
+              <span class="class-name">Mage</span>
+            </button>
+            <button class="class-btn" data-class="paladin" title="Paladin [4]">
+              <span class="class-icon">✨</span>
+              <span class="class-name">Paladin</span>
+            </button>
+            <button class="class-btn" data-class="ranger" title="Ranger [5]">
+              <span class="class-icon">🏹</span>
+              <span class="class-name">Ranger</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Gender Selection -->
+        <div class="form-group">
+          <label>Style</label>
+          <div class="gender-buttons" id="gender-selector">
+            <button class="gender-btn active" data-gender="masculine">Masculine</button>
+            <button class="gender-btn" data-gender="feminine">Feminine</button>
+          </div>
+        </div>
+
+        <!-- Glamour Slider -->
+        <div class="form-group">
+          <label>Glamour <span id="glamour-value">50</span>%</label>
+          <input type="range" id="glamour-slider" min="0" max="100" value="50" class="fantasy-slider">
+          <div class="slider-labels">
+            <span>Simple</span>
+            <span>Heroic</span>
+          </div>
+        </div>
+
+        <!-- Hero Portrait -->
+        <div class="portrait-frame" id="hero-portrait">
+          <div class="portrait-inner">
+            <img id="hero-avatar" src="" alt="Hero Portrait">
+            <div class="portrait-loading">Loading...</div>
+          </div>
+          <div class="portrait-glow"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Enemy Panel -->
+    <aside id="enemy-panel" class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">💀</span>
+        <h2>Enemy</h2>
+      </div>
+      <div class="panel-content">
+        <div class="form-group">
+          <label>Type</label>
+          <div class="enemy-buttons" id="enemy-selector">
+            <button class="enemy-btn active" data-enemy="skeleton">
+              <span class="enemy-icon">💀</span>
+              <span>Skeleton</span>
+            </button>
+            <button class="enemy-btn" data-enemy="orc">
+              <span class="enemy-icon">👹</span>
+              <span>Orc</span>
+            </button>
+            <button class="enemy-btn" data-enemy="demon">
+              <span class="enemy-icon">😈</span>
+              <span>Demon</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Enemy Portrait -->
+        <div class="portrait-frame enemy" id="enemy-portrait">
+          <div class="portrait-inner">
+            <img id="enemy-avatar" src="" alt="Enemy Portrait">
+          </div>
+          <div class="portrait-glow evil"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Control Panel -->
+    <div id="control-panel" class="panel">
+      <button id="fight-btn" class="action-btn fight">
+        <span class="btn-icon">⚔️</span>
+        <span class="btn-text">FIGHT</span>
+        <span class="btn-hint">[Space]</span>
+      </button>
+      <button id="reset-btn" class="action-btn reset">
+        <span class="btn-icon">🔄</span>
+        <span class="btn-text">RESET</span>
+        <span class="btn-hint">[R]</span>
+      </button>
+    </div>
+
+    <!-- Combat Log -->
+    <div id="combat-log" class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">📜</span>
+        <h2>Battle Chronicle</h2>
+      </div>
+      <div class="log-content" id="log-content">
+        <p class="log-entry system">Prepare for battle...</p>
+      </div>
+    </div>
+
+    <!-- Health Bars (positioned over canvas) -->
+    <div id="health-bars">
+      <div class="health-bar-container hero">
+        <div class="health-bar-label">
+          <span class="name" id="hero-name">Hero</span>
+          <span class="hp" id="hero-hp">100/100</span>
+        </div>
+        <div class="health-bar-track">
+          <div class="health-bar-fill" id="hero-health-bar" style="width: 100%"></div>
+          <div class="health-bar-damage" id="hero-damage-bar"></div>
+        </div>
+      </div>
+      <div class="health-bar-container enemy">
+        <div class="health-bar-label">
+          <span class="name" id="enemy-name">Enemy</span>
+          <span class="hp" id="enemy-hp">100/100</span>
+        </div>
+        <div class="health-bar-track">
+          <div class="health-bar-fill" id="enemy-health-bar" style="width: 100%"></div>
+          <div class="health-bar-damage" id="enemy-damage-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory/Defeat Modal -->
+    <div id="result-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-glow"></div>
+        <h2 id="result-title">VICTORY!</h2>
+        <p id="result-text">The hero stands triumphant!</p>
+        <button id="continue-btn" class="action-btn">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vignette Overlay -->
+  <div id="vignette"></div>
+
+  <!-- Grain Overlay -->
+  <div id="grain"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
